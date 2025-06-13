@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulasi Interaktif Energi Surya</title>
+    <style>
+        :root {
+            --solar-orange: #FF6B00;
+            --solar-blue: #1E90FF;
+            --solar-dark: #2C3E50;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f0f8ff;
+            margin: 0;
+            padding: 20px;
+            color: #333;
+        }
+        .simulator-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: var(--solar-orange);
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .simulation-area {
+            background: linear-gradient(to bottom, #87CEEB, #E0F7FA);
+            height: 400px;
+            border-radius: 10px;
+            margin: 20px 0;
+            position: relative;
+            overflow: hidden;
+            border: 2px solid var(--solar-blue);
+        }
+        .sun {
+            position: absolute;
+            top: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 80px;
+            background: radial-gradient(circle, #FFD700, #FF8C00);
+            border-radius: 50%;
+            box-shadow: 0 0 30px #FFD700;
+            z-index: 1;
+        }
+        .solar-panel {
+            position: absolute;
+            bottom: 100px;
+            left: 50%;
+            transform: translateX(-50%) rotate(45deg);
+            width: 200px;
+            height: 120px;
+            background: 
+                linear-gradient(45deg, #2C3E50 0%, #2C3E50 90%, #7f8c8d 90%, #7f8c8d 100%);
+            border: 3px solid #34495e;
+            transition: transform 0.5s;
+            z-index: 2;
+        }
+        .energy-flow {
+            position: absolute;
+            bottom: 220px;
+            left: 50%;
+            width: 4px;
+            background: var(--solar-orange);
+            transform-origin: bottom;
+            transform: translateX(-50%) scaleY(0);
+            z-index: 1;
+            opacity: 0.7;
+        }
+        .battery {
+            position: absolute;
+            bottom: 50px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 40px;
+            background: #34495e;
+            border-radius: 5px;
+            border: 3px solid #2C3E50;
+            z-index: 3;
+        }
+        .battery-level {
+            position: absolute;
+            bottom: 3px;
+            left: 3px;
+            width: 74px;
+            height: 34px;
+            background: linear-gradient(to right, #4CAF50, #8BC34A);
+            border-radius: 2px;
+            transform-origin: left;
+            transform: scaleX(0.5);
+        }
+        .control-panel {
+            background: #f5f5f5;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 30px;
+        }
+        .control-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: var(--solar-dark);
+        }
+        input[type="range"] {
+            width: 100%;
+            height: 10px;
+            -webkit-appearance: none;
+            background: #ddd;
+            border-radius: 5px;
+        }
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 20px;
+            height: 20px;
+            background: var(--solar-orange);
+            border-radius: 50%;
+            cursor: pointer;
+        }
+        .metrics {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-top: 20px;
+        }
+        .metric-card {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        .metric-value {
+            font-size: 24px;
+            font-weight: bold;
+            color: var(--solar-orange);
+            margin: 5px 0;
+        }
+        .back-btn {
+            display: block;
+            width: 200px;
+            margin: 30px auto 0;
+            padding: 12px;
+            background: var(--solar-dark);
+            color: white;
+            text-align: center;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+        .back-btn:hover {
+            background: var(--solar-orange);
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body>
+    <div class="simulator-container">
+        <h1>Simulasi Interaktif Sistem Energi Surya</h1>
+        
+        <div class="simulation-area" id="simulationArea">
+            <div class="sun" id="sun"></div>
+            <div class="energy-flow" id="energyFlow"></div>
+            <div class="solar-panel" id="solarPanel"></div>
+            <div class="battery">
+                <div class="battery-level" id="batteryLevel"></div>
+            </div>
+        </div>
+        
+        <div class="control-panel">
+            <div class="control-group">
+                <label for="sunIntensity">Intensitas Matahari: <span id="intensityValue">50</span>%</label>
+                <input type="range" id="sunIntensity" min="0" max="100" value="50">
+            </div>
+            
+            <div class="control-group">
+                <label for="panelAngle">Sudut Panel: <span id="angleValue">45</span>°</label>
+                <input type="range" id="panelAngle" min="0" max="90" value="45">
+            </div>
+            
+            <div class="control-group">
+                <label for="batteryLoad">Beban Baterai: <span id="loadValue">50</span>%</label>
+                <input type="range" id="batteryLoad" min="0" max="100" value="50">
+            </div>
+        </div>
+        
+        <div class="metrics">
+            <div class="metric-card">
+                <div>Energi Dihasilkan</div>
+                <div class="metric-value" id="energyOutput">0 W</div>
+            </div>
+            <div class="metric-card">
+                <div>Efisiensi</div>
+                <div class="metric-value" id="efficiency">0%</div>
+            </div>
+            <div class="metric-card">
+                <div>Kapasitas Baterai</div>
+                <div class="metric-value" id="batteryCapacity">50%</div>
+            </div>
+        </div>
+        
+        <a href="Simulasi.html" class="back-btn">Kembali ke Penjelasan</a>
+    </div>
+
+    <script>
+        // Elemen DOM
+        const sun = document.getElementById('sun');
+        const solarPanel = document.getElementById('solarPanel');
+        const energyFlow = document.getElementById('energyFlow');
+        const batteryLevel = document.getElementById('batteryLevel');
+        
+        // Input controls
+        const sunIntensity = document.getElementById('sunIntensity');
+        const panelAngle = document.getElementById('panelAngle');
+        const batteryLoad = document.getElementById('batteryLoad');
+        
+        // Value displays
+        const intensityValue = document.getElementById('intensityValue');
+        const angleValue = document.getElementById('angleValue');
+        const loadValue = document.getElementById('loadValue');
+        
+        // Metrics
+        const energyOutput = document.getElementById('energyOutput');
+        const efficiency = document.getElementById('efficiency');
+        const batteryCapacity = document.getElementById('batteryCapacity');
+        
+        // Animasi
+        let animationFrame;
+        let lastTime = 0;
+        
+        // Update simulation
+        function updateSimulation() {
+            // Get current values
+            const intensity = sunIntensity.value / 100;
+            const angle = panelAngle.value;
+            const load = batteryLoad.value / 100;
+            
+            // Update displayed values
+            intensityValue.textContent = sunIntensity.value;
+            angleValue.textContent = angle;
+            loadValue.textContent = batteryLoad.value;
+            
+            // Adjust panel angle
+            solarPanel.style.transform = `translateX(-50%) rotate(${angle}deg)`;
+            
+            // Calculate energy production (simplified)
+            const optimalAngle = 45; // Optimal angle for energy production
+            const angleEfficiency = 1 - Math.abs(angle - optimalAngle) / 90;
+            const energy = intensity * angleEfficiency;
+            
+            // Update energy flow animation
+            energyFlow.style.height = `${energy * 150}px`;
+            energyFlow.style.transform = `translateX(-50%) scaleY(${energy})`;
+            energyFlow.style.opacity = energy;
+            
+            // Update metrics
+            const outputPower = Math.round(energy * 1000);
+            const effPercent = Math.round(angleEfficiency * 100);
+            
+            energyOutput.textContent = `${outputPower} W`;
+            efficiency.textContent = `${effPercent}%`;
+            
+            // Battery simulation
+            let battery = parseFloat(batteryCapacity.textContent) / 100;
+            battery = Math.min(1, battery + (energy * 0.01 * (1 - load)));
+            battery = Math.max(0, battery - (load * 0.005));
+            batteryLevel.style.transform = `scaleX(${battery})`;
+            batteryCapacity.textContent = `${Math.round(battery * 100)}%`;
+            
+            // Sun animation
+            const time = Date.now() * 0.0005;
+            sun.style.boxShadow = `0 0 ${20 + intensity * 30}px #FFD700`;
+            
+            // Continue animation
+            animationFrame = requestAnimationFrame(updateSimulation);
+        }
+        
+        // Event listeners
+        sunIntensity.addEventListener('input', updateSimulation);
+        panelAngle.addEventListener('input', updateSimulation);
+        batteryLoad.addEventListener('input', updateSimulation);
+        
+        // Start simulation
+        updateSimulation();
+        
+        // Clean up on page leave
+        window.addEventListener('beforeunload', () => {
+            cancelAnimationFrame(animationFrame);
+        });
+    </script>
+</body>
+</html>

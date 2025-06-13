@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Platform Edukasi Teknik</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f9fafb;
+    }
+
+    header {
+      text-align: center;
+      padding: 2rem;
+      background: #e0f0ff;
+    }
+
+    header h1 {
+      color: #1e3a8a;
+      font-size: 2.5rem;
+      margin-bottom: 0.5rem;
+    }
+
+    header p {
+      color: #4b5563;
+      font-size: 1.1rem;
+    }
+
+    .projects {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+      padding: 2rem;
+    }
+
+    .card {
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      overflow: hidden;
+      transition: transform 0.2s;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+    }
+
+    .card img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+    }
+
+    .card-content {
+      padding: 1rem;
+    }
+
+    .card-content h2 {
+      font-size: 1.25rem;
+      color: #1f2937;
+      margin-bottom: 0.5rem;
+    }
+
+    .card-content p {
+      color: #6b7280;
+      font-size: 0.95rem;
+    }
+
+    footer {
+      text-align: center;
+      padding: 1rem;
+      color: #9ca3af;
+      font-size: 0.9rem;
+    }
+    button {
+      justify-content: center;
+      align-items: center;
+      display: flex;
+      height: 50px;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Platform Edukasi Teknik</h1>
+    <p>Eksplorasi proyek-proyek teknik untuk pembelajaran mandiri.</p>
+  </header>
+
+  <section class="projects">
+    <div class="card">
+      <img src="https://files.catbox.moe/kp2xgb.jpg" alt="Jembatan Gantung Mini">
+      <div class="card-content">
+        <button onclick="window.location.href='jembatan.html'"><h2>Proyek Jembatan Gantung Mini</h2></button>
+        <h3>Untuk penjelasan nya klik <span style="font-size: 3rem;">↑</span></h3>
+        <p>Pelajari teknik dasar membangun jembatan dengan struktur gantung menggunakan bahan sederhana.</p>
+      </div>
+    </div>
+    <div class="card">
+      <img src="https://files.catbox.moe/bojiuh.png" alt="Robot Pengangkut Barang">
+      <div class="card-content">
+    <button onclick="window.location.href='robot.html'"><h2>Robot Pengangkut Barang</h2></button>
+    <h3>Untuk penjelasan nya klik <span style="font-size: 3rem;">↑</span></h3>
+        <p>Proyek pemula dalam mekatronika: merancang robot sederhana dengan motor DC dan sensor garis.</p>
+      </div>
+    </div>
+    <div class="card">
+      <img src="https://files.catbox.moe/75sbvv.jpg" alt="Simulasi Energi Surya">
+      <div class="card-content">
+        <button onclick="window.location.href='simulasi.html'"><h2>Simulasi Sistem Energi Surya</h2></button>
+        <h3>Untuk penjelasan nya klik <span style="font-size: 3rem;">↑</span></h3>
+        <p>Pelajari cara kerja panel surya dan sistem penyimpanan energi menggunakan simulasi virtual.</p>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    &copy; 2025 Platform Edukasi Teknik. Dibuat untuk pembelajaran.
+  </footer>
+
+</body>
+</html>

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detail Proyek Jembatan Gantung</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .project-detail {
+            padding: 40px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .detail-container {
+            background: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+        
+        .detail-content {
+            display: flex;
+            gap: 30px;
+            margin-top: 20px;
+        }
+        
+        .detail-content img {
+            width: 400px;
+            height: auto;
+            border-radius: 8px;
+            object-fit: cover;
+        }
+        
+        .text-content {
+            flex: 1;
+        }
+        
+        .text-content button {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: background-color 0.3s;
+        }
+        
+        .text-content button:hover {
+            background-color: #2980b9;
+        }
+        
+        @media (max-width: 768px) {
+            .detail-content {
+                flex-direction: column;
+            }
+            
+            .detail-content img {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <section class="project-detail">
+        <div class="detail-container">
+            <h2>Proyek Jembatan Gantung Mini</h2>
+            <div class="detail-content">
+                <img src="https://files.catbox.moe/kp2xgb.jpg" alt="Jembatan Gantung Mini">
+                <div class="text-content">
+                    <h3>Deskripsi Proyek</h3>
+                    <p>Proyek ini mengajarkan teknik dasar membangun jembatan dengan struktur gantung menggunakan bahan-bahan sederhana yang mudah ditemukan di sekitar kita.</p>
+                    
+                    <h3>Bahan yang Dibutuhkan:</h3>
+                    <ul>
+                        <li>Stik es krim atau bambu kecil</li>
+                        <li>Benang atau tali kecil</li>
+                        <li>Lem kayu</li>
+                        <li>Gunting</li>
+                        <li>Penggaris</li>
+                    </ul>
+                    
+                    <h3>Langkah Pembuatan:</h3>
+                    <ol>
+                        <li>Buat dua menara dari stik es krim dengan bentuk segitiga</li>
+                        <li>Rangkai dasar jembatan dengan menyusun stik es krim secara horizontal</li>
+                        <li>Pasang tali utama sebagai penyangga di antara dua menara</li>
+                        <li>Tambahkan tali vertikal yang menghubungkan tali utama dengan dasar jembatan</li>
+                        <li>Perkuat semua sambungan dengan lem</li>
+                    </ol>
+                    
+                    <button onclick="window.location.href='index.html'">Kembali ke Halaman Utama</button>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+</html>
